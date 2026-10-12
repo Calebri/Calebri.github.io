@@ -158,16 +158,13 @@ function sortProjects(p, method = "") {
     }
 }
 
-export default function() {
-    const [sortMethod, setSortMethod] = useState("cDateD")
-
-    function SortMethodButton(props) {
+function SortMethodButton(props) {
         return (
             <button
-                onClick={() => setSortMethod(props.method)}
+                onClick={() => props.setSortMethod(props.method)}
                 style={{
-                    color: sortMethod == props.method ? 'magenta' : 'white',
-                    borderColor: sortMethod == props.method ? 'magenta' : 'white'
+                    color: props.sortMethod == props.method ? 'magenta' : 'white',
+                    borderColor: props.sortMethod == props.method ? 'magenta' : 'white'
                 }}
             >
                 {props.content}
@@ -175,16 +172,25 @@ export default function() {
         )
     }
 
+function SortMethodButtons(props) {
+    return (
+        <div>
+            <SortMethodButton setSortMethod={props.setSortMethod} sortMethod={props.sortMethod} method="AZ" content="A→Z"/>
+            <SortMethodButton setSortMethod={props.setSortMethod} sortMethod={props.sortMethod} method="ZA" content="Z→A"/>
+            <SortMethodButton setSortMethod={props.setSortMethod} sortMethod={props.sortMethod} method="cDateD" content="Created ↓"/>
+            <SortMethodButton setSortMethod={props.setSortMethod} sortMethod={props.sortMethod} method="cDateA" content="Created ↑"/>
+            <SortMethodButton setSortMethod={props.setSortMethod} sortMethod={props.sortMethod} method="uDateD" content="Updated ↓"/>
+            <SortMethodButton setSortMethod={props.setSortMethod} sortMethod={props.sortMethod} method="uDateA" content="Updated ↑"/>
+        </div>
+    )
+}
+
+export default function Timeline() {
+    const [sortMethod, setSortMethod] = useState("cDateD")
+
     return (
         <div className="routebody">
-            <div>
-                <SortMethodButton method="AZ" content="A→Z"/>
-                <SortMethodButton method="ZA" content="Z→A"/>
-                <SortMethodButton method="cDateD" content="Created ↓"/>
-                <SortMethodButton method="cDateA" content="Created ↑"/>
-                <SortMethodButton method="uDateD" content="Updated ↓"/>
-                <SortMethodButton method="uDateA" content="Updated ↑"/>
-            </div>
+            <SortMethodButtons setSortMethod={setSortMethod} sortMethod={sortMethod}/>
             <div>
                 {/* Sorted projects here */}
                 {projectsToHTML(sortProjects(projects, sortMethod))}
