@@ -1,0 +1,11 @@
+.navheader {
+    display: inline-block;
+    text-decoration: underline;
+}
+
+.linkcontainer {
+    display: inline;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
