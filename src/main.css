@@ -4,7 +4,15 @@
     color: white;
     background-color: black;
 
-    margin: 1em;
+    margin: 20px;
+}
+
+p.indented {
+    text-indent: 5%;
+}
+
+a:hover {
+    color: magenta;
 }
 
 nav {
@@ -16,6 +24,23 @@ nav * {
     font-size: 24px;
 }
 
+details {
+    margin-top: -1em;
+    margin-bottom: 10px;
+}
+
+summary {
+    margin-bottom: 0;
+}
+
+li {
+    margin: 0;
+}
+
+li * {
+    margin: 0;
+}
+
 .routebody {
     margin-left: 50px;
     margin-right: 50px;
@@ -24,4 +49,12 @@ nav * {
 .subtitle {
     margin-top: -0.75em;
     color: gray;
+}
+
+.button {
+    padding: 0.5em;
+
+    outline-color: white;
+    outline-width: 2px;
+    outline-style: solid;
 }

@@ -15,6 +15,16 @@ export default function BigBox(props) {
             <p>
                 {props.body_content}
             </p>
+
+            {
+                props.demo_link ?
+                (
+                    <a className='button' href={props.demo_link} target='_blank'>
+                        Web Demo
+                    </a>
+                )
+                : <></>
+            }
         </div>
     )
 }

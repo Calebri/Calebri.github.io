@@ -1,0 +1,7 @@
+.box {
+    padding: 1em;
+    
+    outline-color: white;
+    outline-width: 2px;
+    outline-style: solid;
+}
