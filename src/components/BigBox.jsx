@@ -1,5 +1,18 @@
 import styles from './BigBox.module.css'
 
+function getFooterLinks(fls) {
+    let out = []
+    for (const [key, value] of Object.entries(fls)) {
+        out.push(
+            <a key={key} className='button' href={value} target='_blank'>
+                {key}
+            </a>
+        )
+    }
+    out.push(<br key={out.length}/>)
+    return out
+}
+
 export default function BigBox(props) {
     return (
         <div className={styles.box}>
@@ -17,12 +30,8 @@ export default function BigBox(props) {
             </p>
 
             {
-                props.demo_link ?
-                (
-                    <a className='button' href={props.demo_link} target='_blank'>
-                        Web Demo
-                    </a>
-                )
+                (props.footer_links && Object.keys(props.footer_links).length > 0) ?
+                getFooterLinks(props.footer_links)
                 : <></>
             }
         </div>

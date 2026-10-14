@@ -17,6 +17,7 @@ export default function Hero() {
             </p>
             
             <Link to="/timeline" className="button">Full Projects List</Link>
+            <br />
             
         </div>
     )

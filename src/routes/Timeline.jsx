@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import BigBox from './BigBox.jsx'
+import BigBox from '../components/BigBox.jsx'
 
 // Enum-like structure for project tags.
 // Keys are easily referenced by code and values are end-user-readable strings.
@@ -19,11 +19,20 @@ class Project {
         this.updatedDate = updatedDate
         this.linkURL = linkURL
         this.tags = tags
+        this.footerLinks = {}
     }
 
-    addDemoLink(demo_link) {
-        this.demoLink = demo_link
+    addLink(name, url) {
+        this.footerLinks[name] = url
         return this
+    }
+
+    addDemoLink(url) {
+        return this.addLink("Live Demo", url)
+    }
+
+    addReleasesLink(url) {
+        return this.addLink("Releases", this.linkURL + "/releases")
     }
 
     toHTML(key = 0) {
@@ -34,7 +43,7 @@ class Project {
                 subtitle = {"Created: " + formatDate(this.createdDate) + "; Updated: " + formatDate(this.updatedDate)}
                 body_content = {this.description}
                 link = {this.linkURL}
-                demo_link = {this.demoLink}
+                footer_links = {this.footerLinks}
             />
         )
     }
@@ -50,7 +59,7 @@ const projects = [
         new Date(2026, 7),
         "https://github.com/Calebri/xcursor_theme_packager",
         [PTAG.UTIL]
-    ).addDemoLink("https://www.google.com"),
+    ).addReleasesLink(),
     new Project(
         "point-n-click",
         `Short demo for a point and click game made in Love2D (Lua framework) for a college project.
@@ -61,7 +70,7 @@ const projects = [
         new Date(2026, 4),
         "https://github.com/Calebri/point-n-click",
         [PTAG.GAME, PTAG.UTIL]
-    ),
+    ).addReleasesLink(),
     new Project(
         "level-game",
         `Short platformer demo in GDevelop made for a college project.`,
@@ -69,7 +78,7 @@ const projects = [
         new Date(2026, 2),
         "https://github.com/Calebri/level-game",
         [PTAG.GAME]
-    ),
+    ).addDemoLink("https://calebri.github.io/level-game/"),
     new Project(
         "A Walk in the Dark",
         `Short text-based game made in Twine Snowman and Javascript for a college project. It uses
@@ -79,7 +88,7 @@ const projects = [
         new Date(2026, 2),
         "https://github.com/Calebri/A-Walk-in-the-Dark",
         [PTAG.GAME]
-    ),
+    ).addDemoLink("https://calebri.github.io/A-Walk-in-the-Dark/").addReleasesLink(),
     new Project(
         "CloverPitAPHints",
         `A BepInEx plugin designed to implement CloverPit as a hint game for the Archipelago Multiworld.
@@ -88,7 +97,7 @@ const projects = [
         new Date(2026, 0),
         "https://github.com/Calebri/CloverPitAPHints",
         [PTAG.MOD]
-    ),
+    ).addLink("Thunderstore", "https://thunderstore.io/c/clover-pit/p/Calebri/CloverPitAPHints/").addReleasesLink(),
     new Project(
         "Picture Poker Scratch",
         `A remake of the Picture Poker minigame from Super Mario 64 DS and New Super Mario Bros.
@@ -98,7 +107,7 @@ const projects = [
         new Date(2024, 0),
         "https://github.com/Calebri/picture-poker-scratch",
         [PTAG.GAME]
-    ),
+    ).addDemoLink("https://calebri.github.io/picture-poker-scratch/"),
     new Project(
         "Shepaug Schedule App",
         `Web app that would predict the daily schedule at my old high-school.
@@ -110,7 +119,7 @@ const projects = [
          new Date(2023, 7),
          "https://github.com/Calebri/shepaug-schedule",
          [PTAG.APP]
-    ),
+    ).addDemoLink("https://calebri.github.io/shepaug-schedule"),
     new Project(
         "DSLightshow",
         `Python app to control and animate the lights on a PS5 DualSense controller.
@@ -119,7 +128,7 @@ const projects = [
         new Date(2022, 10),
         "https://github.com/Calebri/DSLightshow",
         [PTAG.APP]
-    ),
+    ).addReleasesLink(),
     new Project(
         "Game for 2021 Complexity Jam",
         `A game in Scratch for the 2021 Complexity Jam, which my middle school participated in.
@@ -128,7 +137,7 @@ const projects = [
         new Date(2021, 5),
         "https://github.com/Calebri/2021-Complexity-Jam",
         [PTAG.GAME]
-    ),
+    ).addDemoLink("https://calebri.github.io/2021-Complexity-Jam/").addReleasesLink(),
     new Project(
         "speed game",
         `A simple game in Unity where you move left and right to dodge obstacles.`,
@@ -136,7 +145,7 @@ const projects = [
         new Date(2020, 10),
         "https://github.com/Calebri/speed",
         [PTAG.GAME]
-    ),
+    ).addReleasesLink(),
     new Project(
         "platformer",
         `Possibly my earliest programming project. A simple platforming game in Unity.
@@ -145,7 +154,7 @@ const projects = [
         new Date(2020, 7),
         "https://github.com/Calebri/platformer",
         [PTAG.GAME]
-    )
+    ).addReleasesLink()
 ]
 
 // Converts Date to formatted string.
