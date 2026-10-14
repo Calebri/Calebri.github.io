@@ -1,6 +1,6 @@
 import styles from './BigBox.module.css'
 
-function getFooterLinks(fls) {
+function getFooterLinks(fls: Record<string, string>) {
     let out = []
     for (const [key, value] of Object.entries(fls)) {
         out.push(
@@ -13,7 +13,16 @@ function getFooterLinks(fls) {
     return out
 }
 
-export default function BigBox(props) {
+type BigBoxProps = {
+    head_content: string,
+    body_content: string,
+
+    subtitle?: string,
+    link?: string,
+    footer_links?: Record<string, string>,
+}
+
+export default function BigBox(props: BigBoxProps) {
     return (
         <div className={styles.box}>
             <div className={styles.header}>

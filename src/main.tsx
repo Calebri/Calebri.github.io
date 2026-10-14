@@ -1,10 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, Link, RouterProvider } from 'react-router-dom'
-import Home from './routes/Home.jsx'
-import Timeline from './routes/Timeline.jsx'
+import Home from './routes/Home.tsx'
+import Timeline from './routes/Timeline.tsx'
 import './main.css'
-import Layout from './Layout.jsx'
+import Layout from './Layout.tsx'
 
 const router = createBrowserRouter([
   {
@@ -22,7 +22,14 @@ const router = createBrowserRouter([
   }
 ])
 
-createRoot(document.getElementById('root')).render(
+const rootElement: HTMLElement | null = document.getElementById('root')
+
+if (!rootElement) {
+  throw new Error("Root element not found!")
+}
+
+
+createRoot(rootElement).render(
   <StrictMode>
     <RouterProvider router={router} />
   </StrictMode>,

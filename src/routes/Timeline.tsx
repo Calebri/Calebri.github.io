@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import BigBox from '../components/BigBox.jsx'
+import BigBox from '../components/BigBox.tsx'
 
 // Enum-like structure for project tags.
 // Keys are easily referenced by code and values are end-user-readable strings.
@@ -12,7 +12,15 @@ const PTAG = Object.freeze({
 
 // Class for a single project to display.
 class Project {
-    constructor(title, description, createdDate, updatedDate, linkURL = "", tags = []) {
+    title: string
+    description: string
+    createdDate: Date
+    updatedDate: Date
+    linkURL: string
+    tags: Array<string>
+    footerLinks: Record<string, string>
+
+    constructor(title: string, description: string, createdDate: Date, updatedDate: Date, linkURL: string = "", tags: Array<string> = []) {
         this.title = title
         this.description = description
         this.createdDate = createdDate
@@ -22,16 +30,16 @@ class Project {
         this.footerLinks = {}
     }
 
-    addLink(name, url) {
+    addLink(name: string, url: string) {
         this.footerLinks[name] = url
         return this
     }
 
-    addDemoLink(url) {
+    addDemoLink(url: string) {
         return this.addLink("Live Demo", url)
     }
 
-    addReleasesLink(url) {
+    addReleasesLink() {
         return this.addLink("Releases", this.linkURL + "/releases")
     }
 
@@ -158,7 +166,7 @@ const projects = [
 ]
 
 // Converts Date to formatted string.
-function formatDate(d) {
+function formatDate(d: Date) {
     return (
         d.toLocaleString('default', { month: 'short' })
         + ", "
@@ -167,35 +175,39 @@ function formatDate(d) {
 }
 
 // Converts projects array to a format that can be directly displayed on the page.
-function projectsToHTML(p) {
+function projectsToHTML(p: Array<Project>) {
     let out = []
-    for (let i = 0; i < p.length; i++) {
-        out[i] = p[i].toHTML(i)
+    for (let i: number = 0; i < p.length; i++) {
+        const project: Project | undefined = p[i]
+        if (project != undefined) {
+            out[i] = project.toHTML(i)
+        }
     }
     return out
 }
 
 // Returns a copy of p sorted by method. Returns p if no method specified.
-function sortProjects(p, method = "") {
+function sortProjects(p: Array<Project>, method = "") {
     switch (method) {
         case "AZ": // Alphabetical Descending
             return p.toSorted((a,b) => a.title.localeCompare(b.title))
         case "ZA": // Alphabetical Ascending
             return p.toSorted((a,b) => b.title.localeCompare(a.title))
         case "cDateD": // Created Date Descending
-            return p.toSorted((a,b) => b.createdDate - a.createdDate)
+            return p.toSorted((a,b) => b.createdDate.getTime() - a.createdDate.getTime())
         case "cDateA": // Created Date Ascending
-            return p.toSorted((a,b) => a.createdDate - b.createdDate)
+            return p.toSorted((a,b) => a.createdDate.getTime() - b.createdDate.getTime())
         case "uDateD": // Updated Date Descending
-            return p.toSorted((a,b) => b.updatedDate - a.updatedDate)
+            return p.toSorted((a,b) => b.updatedDate.getTime() - a.updatedDate.getTime())
         case "uDateA": // Updated Date Ascending
-            return p.toSorted((a,b) => a.updatedDate - b.updatedDate)
+            return p.toSorted((a,b) => a.updatedDate.getTime() - b.updatedDate.getTime())
         default:
             return p
     }
 }
 
-function SortMethodButton(props) {
+function SortMethodButton(props: { method: string, sortMethod: string,
+    setSortMethod: React.Dispatch<React.SetStateAction<string>>, content: string }) {
         return (
             <button
                 onClick={() => props.setSortMethod(props.method)}
@@ -209,7 +221,7 @@ function SortMethodButton(props) {
         )
     }
 
-function SortMethodButtons(props) {
+function SortMethodButtons(props: { sortMethod: string, setSortMethod: React.Dispatch<React.SetStateAction<string>> }) {
     return (
         <div style={{marginTop: "0"}}>
             <SortMethodButton setSortMethod={props.setSortMethod} sortMethod={props.sortMethod} method="AZ" content="A→Z"/>
@@ -225,9 +237,9 @@ function SortMethodButtons(props) {
 
 // Returns a copy of p with projects removed that have no tags in indcludedTags.
 // Returns p if no method specified.
-function tagFilterProjects(p, includedTags) {
+function tagFilterProjects(p: Array<Project>, includedTags: Array<string>) {
     if (includedTags.length > 0) {
-        let pc = []
+        let pc: Array<Project> = []
         
         p.forEach(project => {
             for (const tag of includedTags) {
@@ -244,7 +256,9 @@ function tagFilterProjects(p, includedTags) {
     }
 }
 
-function TagFilterInput(props) {
+function TagFilterInput(props: { thisTag: string, includedTags: Array<string>,
+    setIncludedTags: React.Dispatch<React.SetStateAction<Array<string>>>
+}) {
     return (
         <div style={{margin: "0"}}>
             <input
@@ -255,7 +269,7 @@ function TagFilterInput(props) {
                         if (props.includedTags.includes(props.thisTag)) {
                             props.setIncludedTags(props.includedTags.filter(item => item != props.thisTag))
                         } else {
-                            let copy = [...props.includedTags]
+                            let copy: Array<string> = [...props.includedTags]
                             copy.push(props.thisTag)
                             props.setIncludedTags(copy)
                         }
@@ -268,7 +282,9 @@ function TagFilterInput(props) {
     )
 }
 
-function  TagFilterInputs(props) {
+function  TagFilterInputs(props: { includedTags: Array<string>,
+    setIncludedTags: React.Dispatch<React.SetStateAction<Array<string>>>}
+) {
     return (
         <div style={{marginTop: "10px"}}>
             <TagFilterInput includedTags={props.includedTags} setIncludedTags={props.setIncludedTags} thisTag={PTAG.APP} />
@@ -281,7 +297,7 @@ function  TagFilterInputs(props) {
 
 export default function Timeline() {
     const [sortMethod, setSortMethod] = useState("uDateD")
-    const [includedTags, setIncludedTags] = useState([])
+    const [includedTags, setIncludedTags] = useState([] as Array<string>)
 
     return (
         <div className="routebody">

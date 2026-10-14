@@ -1,5 +1,5 @@
-import Hero from '../components/Hero.jsx'
-import BigBox from '../components/BigBox.jsx'
+import Hero from '../components/Hero.tsx'
+import BigBox from '../components/BigBox.tsx'
 
 export default function Home() {
     return (

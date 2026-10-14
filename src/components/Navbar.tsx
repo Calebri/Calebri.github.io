@@ -1,7 +1,7 @@
 import { NavLink as Link } from 'react-router-dom'
 import styles from './Navbar.module.css'
 
-const navLinkStyles = ({isActive}) => ({
+const navLinkStyles = ({isActive}: {isActive: boolean}) => ({
     color: isActive ? '#FF00FF' : '#FFFFFF',
     textDecoration: isActive ? 'underline' : 'none'
 });
