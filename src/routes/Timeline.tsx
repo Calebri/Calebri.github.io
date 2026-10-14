@@ -276,8 +276,9 @@ function TagFilterInput(props: { thisTag: string, includedTags: Array<string>,
                     }
                 }
                 style={{margin: "10px"}}
+                id={"tagselector_" + props.thisTag}
             />
-            <span>{props.thisTag}</span>
+            <label htmlFor={"tagselector_" + props.thisTag}>{props.thisTag}</label>
         </div>
     )
 }
