@@ -1,11 +1,11 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { createBrowserRouter, Link, RouterProvider } from 'react-router-dom'
+import { createHashRouter, Link, RouterProvider } from 'react-router-dom'
 import './main.css'
 import Layout from './Layout.tsx'
 import { Home, Timeline } from './routes.tsx'
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     element: <Layout />,
     errorElement: <>
