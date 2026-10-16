@@ -42,7 +42,8 @@ function SortMethodButton(props: { method: string, sortMethod: string,
                 onClick={() => props.setSortMethod(props.method)}
                 style={{
                     color: props.sortMethod == props.method ? 'magenta' : 'white',
-                    borderColor: props.sortMethod == props.method ? 'magenta' : 'white'
+                    borderColor: props.sortMethod == props.method ? 'magenta' : 'white',
+                    marginRight: "2em",
                 }}
             >
                 {props.content}
@@ -52,7 +53,7 @@ function SortMethodButton(props: { method: string, sortMethod: string,
 
 function SortMethodButtons(props: { sortMethod: string, setSortMethod: React.Dispatch<React.SetStateAction<string>> }) {
     return (
-        <div style={{marginTop: "0"}}>
+        <div style={{marginBottom: "2em"}}>
             <SortMethodButton setSortMethod={props.setSortMethod} sortMethod={props.sortMethod} method="AZ" content="A→Z"/>
             <SortMethodButton setSortMethod={props.setSortMethod} sortMethod={props.sortMethod} method="ZA" content="Z→A"/>
             <SortMethodButton setSortMethod={props.setSortMethod} sortMethod={props.sortMethod} method="cDateD" content="Created ↓"/>
@@ -116,7 +117,7 @@ function  TagFilterInputs(props: { includedTags: Array<string>,
     setIncludedTags: React.Dispatch<React.SetStateAction<Array<string>>>}
 ) {
     return (
-        <div style={{marginTop: "10px"}}>
+        <div style={{marginTop: "1em", marginBottom: "2em"}}>
             <TagFilterInput includedTags={props.includedTags} setIncludedTags={props.setIncludedTags} thisTag={PTAG.APP} />
             <TagFilterInput includedTags={props.includedTags} setIncludedTags={props.setIncludedTags} thisTag={PTAG.UTIL} />
             <TagFilterInput includedTags={props.includedTags} setIncludedTags={props.setIncludedTags} thisTag={PTAG.GAME} />

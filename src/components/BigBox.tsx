@@ -26,7 +26,7 @@ export default function BigBox(props: BigBoxProps) {
     return (
         <div className={styles.box}>
             <div className={styles.header}>
-                <h1>{props.head_content}</h1>
+                <p style={{marginTop: "0", marginBottom: "1em"}}>{props.head_content}</p>
                 <a className={styles.link} target="_blank" href={props.link}>{props.link}</a>
             </div>
 
@@ -40,7 +40,10 @@ export default function BigBox(props: BigBoxProps) {
 
             {
                 (props.footer_links && Object.keys(props.footer_links).length > 0) ?
-                getFooterLinks(props.footer_links)
+                <>
+                    <br />
+                    {getFooterLinks(props.footer_links)}
+                </>
                 : <></>
             }
         </div>

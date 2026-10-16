@@ -1,6 +1,7 @@
 .navheader {
     display: inline-block;
     text-decoration: underline;
+    margin: 0;
 }
 
 .linkcontainer {

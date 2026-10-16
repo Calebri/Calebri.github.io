@@ -15,8 +15,7 @@ export default function Navbar() {
 
             <div className={styles.linkcontainer}>
                 <Link to="/" style={navLinkStyles}>Home</Link> |{" "}
-                <Link to="/timeline" style={navLinkStyles}>Timeline</Link> |{" "}
-                <Link to="/about" style={navLinkStyles}>About</Link>
+                <Link to="/timeline" style={navLinkStyles}>Timeline</Link>
             </div>
         </nav>
     )

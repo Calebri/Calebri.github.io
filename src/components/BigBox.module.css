@@ -1,9 +1,11 @@
 .box {
-    padding: 1em;
+    padding: 2em;
     
-    outline-color: white;
+    outline-color: #ffffff;
     outline-width: 2px;
     outline-style: solid;
+
+    margin-bottom: 2em;
 }
 
 .header {
@@ -13,13 +15,11 @@
     display: flex;
     justify-content: flex-end;
 
-
-    /* position: absolute; */
-    text-align: right;
-
     background-color: transparent;
 }
 
 .link {
     margin-left: auto;
+
+    text-align: right;
 }
