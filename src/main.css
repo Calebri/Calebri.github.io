@@ -78,6 +78,8 @@ li * {
 .button {
     padding: 0.5em;
 
+    margin-right: 1em;
+
     outline-color: white;
     outline-width: 2px;
     outline-style: solid;
