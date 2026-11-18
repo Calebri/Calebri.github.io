@@ -3,6 +3,16 @@ import PTAG from '../data/ProjectTags.tsx'
 
 const projects = [
     new Project(
+        "Caleb Site",
+        `Custom web interface built in React JS to quickly and efficiently access all of my projects.
+         The website is designed to be easily accessible for individuals with different levels of
+         familiarity with computer science conventions.`,
+        new Date(2026, 9),
+        new Date(2026, 10),
+        "https://github.com/Calebri/Calebri.github.io",
+        [PTAG.APP]
+    ),
+    new Project(
         "XCursor Theme Packager",
         `Utility script in Bash that automatically creates X11 cursor packages from raw images using
          xcursorgen.`,
